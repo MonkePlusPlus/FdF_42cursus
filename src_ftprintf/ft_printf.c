@@ -6,11 +6,11 @@
 /*   By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 15:59:44 by ptheo             #+#    #+#             */
-/*   Updated: 2024/05/27 16:16:29 by ptheo            ###   ########.fr       */
+/*   Updated: 2024/06/18 17:49:49 by ptheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ft_printf.h"
+#include "../includes/fdf.h"
 
 int	ft_printf(const char *string, ...)
 {
@@ -39,4 +39,9 @@ int	ft_printf(const char *string, ...)
 	}
 	va_end(argptr);
 	return (count);
+}
+
+int	main(void)
+{
+	return (0);
 }

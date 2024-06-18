@@ -6,11 +6,11 @@
 /*   By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 19:02:15 by ptheo             #+#    #+#             */
-/*   Updated: 2024/06/15 17:18:55 by ptheo            ###   ########.fr       */
+/*   Updated: 2024/06/18 17:48:01 by ptheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "../includes/fdf.h"
 
 char	*ft_strdup(char *s)
 {

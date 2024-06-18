@@ -6,11 +6,11 @@
 /*   By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 19:02:19 by ptheo             #+#    #+#             */
-/*   Updated: 2024/06/15 17:18:56 by ptheo            ###   ########.fr       */
+/*   Updated: 2024/06/18 17:48:03 by ptheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "../includes/fdf.h"
 
 int	check_n_len(char *buf, int len)
 {

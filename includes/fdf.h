@@ -6,7 +6,7 @@
 /*   By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 16:59:24 by ptheo             #+#    #+#             */
-/*   Updated: 2024/06/17 17:52:21 by ptheo            ###   ########.fr       */
+/*   Updated: 2024/06/18 17:48:58 by ptheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <stdarg.h>
+# include <stdint.h>
 # include <math.h>
 # include "get_next_line.h"
 # include "ft_printf.h"
