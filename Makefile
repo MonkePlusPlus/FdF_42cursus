@@ -6,39 +6,57 @@
 #    By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/17 16:56:21 by ptheo             #+#    #+#              #
-#    Updated: 2024/06/18 18:14:18 by ptheo            ###   ########.fr        #
+#    Updated: 2024/06/30 20:50:08 by ptheo            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRC = ./src/
-SRC_LIB = ./src_lib/
-SRC_FTPRINTF = ./src_ftprintf/
-SRC_GNL = ./src_gnl/
 
-SRC_FILE = $(addprefix $(SRC),*.c) $(addprefix $(SRC_LIB),*.c) 
-SRC_FILE += $(addprefix $(SRC_FTPRINTF),*.c) $(addprefix $(SRC_GNL),*.c)
+FILE     = main.c
+SRC_FILE = $(addprefix $(SRC), $(FILE))
 
-OBJ = $(SRC_FILE:.c=.o)
+OBJ      := $(SRC_FILE:.c=.o)
+INCLUDES := ./includes/
 
-INCLUDES = ./includes/
+CC        := cc
+FLAGS 	  := -Wall -Werror -Wextra -g3
+MLX_FLAGS := -Lmlx_linux -lmlx -lXext -lX11 -lm -lz
 
-CC = clang
-FLAGS = -Wall -Werror -Wextra
+RM   := rm -rf
+NAME := fdf
+MAKE := make
 
-RM = rm -rf
-NAME = fdf
+PATH_LIBFT := ./libft/
+PATH_MLX   := ./mlx_linux/
 
 .c.o : 
-	${CC} ${CFLAGS} -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
-all : $(NAME)
+all : $(NAME) 
 
-$(NAME) : $(CC) $(FLAGS) $(OBJ) -o $(NAME)
+$(NAME) : $(OBJ) mlx libft
+		$(CC) $(FLAGS) $(OBJ) $(MLX_FLAGS) -o $(NAME) -I$(INCLUDES)
+
+libft : 
+	@echo "compilate libft :"
+	@$(MAKE) -C $(PATH_LIBFT) all
+
+mlx :
+	@echo "compilate mlx :"
+	@$(MAKE) -C $(PATH_MLX)
 
 clean :
+	@echo "clean libft :"
+	@$(MAKE) -C $(PATH_LIBFT) clean
+	@echo "clean mlx :"
+	@$(MAKE) -C $(PATH_MLX) clean
 	$(RM) $(OBJ)
 
 fclean :
+	@echo "fclean libft : "
+	@$(MAKE) -C $(PATH_LIBFT) fclean
+	@echo "clean mlx :"
+	@$(MAKE) -C $(PATH_MLX) clean
 	$(RM) $(NAME) $(OBJ)
 
 re : fclean all
