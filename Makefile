@@ -6,7 +6,7 @@
 #    By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/17 16:56:21 by ptheo             #+#    #+#              #
-#    Updated: 2024/07/01 17:29:20 by ptheo            ###   ########.fr        #
+#    Updated: 2024/07/02 12:09:29 by ptheo            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ SRC = ./src/
 FILE     = main.c
 FILE	+= figure.c
 FILE	+= pixel.c
+FILE	+= keytouch.c
 # END FILE
 
 SRC_FILE = $(addprefix $(SRC), $(FILE))

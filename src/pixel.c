@@ -6,7 +6,7 @@
 /*   By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:43:57 by ptheo             #+#    #+#             */
-/*   Updated: 2024/07/01 17:29:19 by ptheo            ###   ########.fr       */
+/*   Updated: 2024/07/02 12:00:31 by ptheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ t_data	*create_pixel(void *mlx)
 	return (pixel);
 }
 
-void	put_pixel(void *mlx, void *mlx_win, t_data *pixel, t_pos pos)
+void	put_pixel(t_var var, t_data *pixel, t_pos pos)
 {
 	my_mlx_pixel_put(pixel, pos.x, pos.y, 0xFFFFFFFF);
-	mlx_put_image_to_window(mlx, mlx_win, pixel->pixel, 0, 0);
+	mlx_put_image_to_window(var.mlx, var.win, pixel->pixel, 0, 0);
 }
