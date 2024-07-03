@@ -6,13 +6,13 @@
 /*   By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:45:18 by ptheo             #+#    #+#             */
-/*   Updated: 2024/07/02 11:58:48 by ptheo            ###   ########.fr       */
+/*   Updated: 2024/07/03 19:18:13 by ptheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 
-void	create_line(t_var var, t_data *pixel, t_pos *pos)
+void	create_line(t_var var, t_pixel *pixel, t_pos *pos)
 {
 	int	x;
 	int	y;
@@ -55,7 +55,7 @@ t_pos	*double_pos(t_pos pos1, t_pos pos2)
 	return (pos);
 }
 
-void	create_square(t_var var, t_data *pixel, t_pos *pos)
+void	create_square(t_var var, t_pixel *pixel, t_pos *pos)
 {
 	t_pos	posa;
 	t_pos	posb;

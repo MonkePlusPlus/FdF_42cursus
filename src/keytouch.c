@@ -6,23 +6,33 @@
 /*   By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 12:03:58 by ptheo             #+#    #+#             */
-/*   Updated: 2024/07/02 17:42:31 by ptheo            ###   ########.fr       */
+/*   Updated: 2024/07/03 19:52:31 by ptheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 
-int mouse_movement(int x, int y, t_var *var)
+int left_mouse_movement(int x, int y, t_data *data)
 {
-    printf("yo\n");
+	ft_printf("prout\n");
+    ft_printf("mouse move : x = %d y = %d\n", x, y);
     return (0);
 }
 
-int click_mouse(int keycode, t_var *var)
+int right_mouse_movement(int x, int y, t_data *data)
 {
-    if (keycode == 1)
-    {
-        mlx_hook(var->mlx, 6, 0L, mouse_movement, var);
-    }
+    ft_printf("mouse move : x = %d y = %d\n", x, y);
+    return (0);
+}
+
+int key_mouse(int mousecode, int x, int y, t_data *data)
+{
+	ft_printf("mousekey : %d x = %d y = %d\n", mousecode, x, y);
+	return (0);
+}
+
+int key_touch(int keycode, t_data *data)
+{
+	ft_printf("key : %d\n", keycode);
     return (0);
 }

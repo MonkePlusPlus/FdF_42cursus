@@ -6,7 +6,7 @@
 #    By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/17 16:56:21 by ptheo             #+#    #+#              #
-#    Updated: 2024/07/02 12:09:29 by ptheo            ###   ########.fr        #
+#    Updated: 2024/07/03 17:40:53 by ptheo            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,29 +24,31 @@ SRC_FILE = $(addprefix $(SRC), $(FILE))
 OBJ      := $(SRC_FILE:.c=.o)
 INCLUDES := ./includes/
 
+PATH_LIBFT := ./libft/
+PATH_MLX   := ./mlx_linux/
+
+LIBFT = $(PATH_LIBFT)libft.a
+
 CC        := cc
 FLAGS 	  := -Wall -Werror -Wextra -g3
-MLX_FLAGS := -Lmlx_linux -lmlx -lXext -lX11 -lm -lz
+MLX_FLAGS := -L$(PATH_LIBFT) -lft -Lmlx_linux -lmlx -lXext -lX11 -lm -lz
 
 RM   := rm -rf
 NAME := fdf
 MAKE := make
 
-PATH_LIBFT := ./libft/
-PATH_MLX   := ./mlx_linux/
-
 #.c.o : 
 #	$(CC) $(CFLAGS) -c $< -o $@
 
-all : $(NAME) 
+all : $(NAME) $(PATH_LIBFT) $(PATH_MLX)
 
-$(NAME) : $(OBJ) mlx libft
+$(NAME) : $(OBJ) mlx $(LIBFT)
 		@echo "compilation of fdf file :"
 		$(CC) $(FLAGS) $(OBJ) $(MLX_FLAGS) -o $(NAME) -I$(INCLUDES)
 
-libft : 
+$(LIBFT) : 
 	@echo "compilate libft :"
-	@$(MAKE) -C $(PATH_LIBFT) re
+	@$(MAKE) -C $(PATH_LIBFT) all
 
 mlx :
 	@echo "compilate mlx :"

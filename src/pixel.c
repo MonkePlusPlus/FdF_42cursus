@@ -6,13 +6,13 @@
 /*   By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:43:57 by ptheo             #+#    #+#             */
-/*   Updated: 2024/07/02 12:00:31 by ptheo            ###   ########.fr       */
+/*   Updated: 2024/07/03 19:15:19 by ptheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
+void	my_mlx_pixel_put(t_pixel *data, int x, int y, int color)
 {
 	char	*dst;
 
@@ -20,11 +20,11 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
-t_data	*create_pixel(void *mlx)
+t_pixel	*create_pixel(void *mlx)
 {
-	t_data	*pixel;
+	t_pixel	*pixel;
 	
-	pixel = (t_data *)malloc(sizeof(t_data) * 1);
+	pixel = (t_pixel *)malloc(sizeof(t_pixel) * 1);
 	if (pixel == NULL)
 		return (NULL);
 	pixel->pixel = mlx_new_image(mlx, 1500, 1000);
@@ -33,7 +33,7 @@ t_data	*create_pixel(void *mlx)
 	return (pixel);
 }
 
-void	put_pixel(t_var var, t_data *pixel, t_pos pos)
+void	put_pixel(t_var var, t_pixel *pixel, t_pos pos)
 {
 	my_mlx_pixel_put(pixel, pos.x, pos.y, 0xFFFFFFFF);
 	mlx_put_image_to_window(var.mlx, var.win, pixel->pixel, 0, 0);
