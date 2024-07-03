@@ -6,7 +6,7 @@
 /*   By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:43:57 by ptheo             #+#    #+#             */
-/*   Updated: 2024/07/03 19:15:19 by ptheo            ###   ########.fr       */
+/*   Updated: 2024/07/03 22:55:50 by ptheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_pixel	*create_pixel(void *mlx)
 	pixel = (t_pixel *)malloc(sizeof(t_pixel) * 1);
 	if (pixel == NULL)
 		return (NULL);
-	pixel->pixel = mlx_new_image(mlx, 1500, 1000);
+	pixel->pixel = mlx_new_image(mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
 	pixel->addr = mlx_get_data_addr(pixel->pixel, &pixel->bits, &pixel->length,
 									&pixel->endian);
 	return (pixel);
