@@ -6,7 +6,7 @@
 /*   By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 16:59:24 by ptheo             #+#    #+#             */
-/*   Updated: 2024/07/03 22:53:12 by ptheo            ###   ########.fr       */
+/*   Updated: 2024/07/04 19:12:24 by ptheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@
 
 # define SCREEN_WIDTH 800
 # define SCREEN_HEIGHT 800
+
+# define WHITE 0xFFFFFFFF
+# define BLACK 0x00000000
 
 /* STRUCT */
 typedef struct s_pixel
@@ -55,7 +58,6 @@ typedef struct s_data
 	t_var	var;
 	t_pos	pos;
 	t_pixel	*pixel;
-	t_pixel	*background;
 	int		right;
 	int		left;
 }				t_data;
@@ -63,10 +65,10 @@ typedef struct s_data
 /* PIXEL MANAGEMENT */
 t_pixel	*create_pixel(void *mlx);
 void	my_mlx_pixel_put(t_pixel *data, int x, int y, int color);
-void	put_pixel(t_var var, t_pixel *pixel, t_pos pos);
+void	put_pixel(t_var var, t_pixel *pixel, t_pos pos, int color);
 
 /* BACKGROUND */
-t_pixel *create_backgound(void  *mlx);
+void create_backgound(t_var var, t_pixel *pixel);
 
 /* CREATE FIGURE */
 void	create_line(t_var var, t_pixel *pixel, t_pos *pos);

@@ -6,7 +6,7 @@
 /*   By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:45:18 by ptheo             #+#    #+#             */
-/*   Updated: 2024/07/03 19:18:13 by ptheo            ###   ########.fr       */
+/*   Updated: 2024/07/04 19:09:17 by ptheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	create_line(t_var var, t_pixel *pixel, t_pos *pos)
 	y /= max;
 	while (n < max)
 	{
-		put_pixel(var, pixel, pos[0]);
+		put_pixel(var, pixel, pos[0], WHITE);
 		pos[0].x += x;
 		pos[0].y += y;
 		n++;
