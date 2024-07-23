@@ -6,7 +6,7 @@
 /*   By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 16:59:24 by ptheo             #+#    #+#             */
-/*   Updated: 2024/07/04 19:12:24 by ptheo            ###   ########.fr       */
+/*   Updated: 2024/07/23 17:51:39 by ptheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,23 @@ typedef struct s_pixel
 	int		endian;
 }				t_pixel;
 
+typedef struct s_axe
+{
+    double  alpha;
+    double  beta;
+    double  delta;
+}               t_axe;
+
 typedef struct s_pos
 {
-	int	x;
-	int	y;
-	int	z;
-	int angle;
+	double	a;
+	double	b;
+	double	c;
+	double	i;
+	double	j;
+	double	z;
+	int	    x;
+	int	    y;
 }				t_pos;
 
 typedef struct s_var
@@ -53,30 +64,52 @@ typedef struct s_var
 	void	*win;
 }				t_var;
 
+typedef struct s_mouse
+{
+	int	right;
+	int	left;
+	int	vector_x;
+	int	vector_y;
+	int	rota_x;
+	int	rota_y;
+}				t_mouse;
+
 typedef struct s_data
 {
 	t_var	var;
 	t_pos	pos;
 	t_pixel	*pixel;
-	int		right;
-	int		left;
+	t_mouse	mouse;
+	t_axe	axis;
+    t_pos   **matrix;
+    int     length;
+	int		**screen;
+    int     zoom;
+	int		rendering;
+	int		inrendering;
 }				t_data;
 
 /* PIXEL MANAGEMENT */
 t_pixel	*create_pixel(void *mlx);
-void	my_mlx_pixel_put(t_pixel *data, int x, int y, int color);
-void	put_pixel(t_var var, t_pixel *pixel, t_pos pos, int color);
+void	my_mlx_pixel_put(t_pixel *pixel, int x, int y, int color);
+void	put_pixel(t_data *data, int x, int y, int color);
+void	clear_pixel(t_pixel *pixel);
 
 /* BACKGROUND */
-void create_backgound(t_var var, t_pixel *pixel);
+void create_backgound(t_data *data);
+int **create_screen();
+void    free_tab(int **tab, int size);
 
 /* CREATE FIGURE */
-void	create_line(t_var var, t_pixel *pixel, t_pos *pos);
-void	create_square(t_var var, t_pixel *pixel, t_pos *pos);
+void	create_line(t_data *data, t_pos pos0, t_pos pos1);
+void	create_field(t_data *data);
+t_pos	**create_matrix();
 
-/* POSITION POINT */
-t_pos	*double_pos(t_pos pos1, t_pos pos2);
-t_pos	make_pos(int x, int y);
+/* POSITION POINT & ROTATION */
+t_pos	new_pos(int x, int y, int z);
+void	roll(t_axe axis, t_pos *pos);
+void	pitch(t_axe axis, t_pos *pos);
+void	yaw(t_axe axis, t_pos *pos);
 
 /* KEY MANAGEMENT */
 int key_touch(int keycode, t_data *data);
@@ -88,5 +121,8 @@ int mouse_release(int mousecode, int x, int y, t_data *data);
 
 /* CLOSE WINDOW */
 int	close_window(int keycode, t_data *data);
+
+/* RENDER */
+int	render_next_frame(t_data *data);
 
 #endif

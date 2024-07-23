@@ -6,27 +6,67 @@
 /*   By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 22:51:24 by ptheo             #+#    #+#             */
-/*   Updated: 2024/07/04 19:25:06 by ptheo            ###   ########.fr       */
+/*   Updated: 2024/07/23 16:23:07 by ptheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 
-void    create_backgound(t_var  var, t_pixel *pixel)
+void    free_tab(int **tab, int size)
 {
-    int i;
-    int j;
+	int	i;
 
-    i = 0;
-    j = 0;
-    while (i < SCREEN_HEIGHT)
-    {
-        while (j < SCREEN_WIDTH)
-        {
-            put_pixel(var, pixel, make_pos(j, i), WHITE);
-            j++;
-        }
-        j = 0;
-        i++;
-    }
+	i = 0;
+	while (i < size)
+	{
+		free(tab[i]);
+		i++;
+	}
+	free(tab);
+}
+
+int	**create_screen()
+{
+	int	**tab;
+	int	i;
+	i = 0;
+	tab = (int **)malloc(sizeof(int *) * SCREEN_HEIGHT);
+	if (tab == NULL)
+	return (NULL);
+	while (i < SCREEN_HEIGHT)
+	{
+		tab[i] = (int *)malloc(sizeof(int *) * SCREEN_WIDTH);
+		if (tab[i] == NULL)
+			return (free_tab(tab, i), NULL);
+		ft_bzero(tab[i], SCREEN_WIDTH);
+		i++;
+	}
+	return (tab);
+}
+
+void	create_backgound(t_data *data)
+{
+	t_pos	pos;
+	int		i;
+	int		j;
+
+	data->inrendering = 1;
+	ft_printf("rendering background\n");
+	i = 0;
+	j = 0;
+	while (i < SCREEN_HEIGHT)
+	{
+		while (j < SCREEN_WIDTH)
+		{
+			if (data->screen[i][j] == 1)
+			{
+				put_pixel(data, i, j, BLACK);
+				data->screen[i][j] = 0;
+			}
+			j++;
+		}
+		j = 0;
+		i++;
+	}
+	data->inrendering = 0;
 }
