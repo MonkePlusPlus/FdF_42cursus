@@ -6,7 +6,7 @@
 /*   By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 15:25:15 by ptheo             #+#    #+#             */
-/*   Updated: 2024/07/23 18:21:05 by ptheo            ###   ########.fr       */
+/*   Updated: 2024/07/24 00:52:00 by ptheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,15 @@ int	main(void)
 			
 	data.pos = new_pos(100, 100, 0);
 	data.axis.alpha = 0.5;
-	data.axis.beta = 0;
+	data.axis.beta = 0.5;
 	data.axis.delta = 0;
 	
 	data.mouse.left = 0;
 	data.mouse.right = 0;
-	data.mouse.vector_x = 0;
-	data.mouse.vector_y = 0;
-	data.mouse.rota_x = 0;
-	data.mouse.rota_y = 0;
+	data.mouse.vector_x = SCREEN_WIDTH / 2;
+	data.mouse.vector_y = SCREEN_HEIGHT / 2;
+	data.mouse.rota_x = SCREEN_WIDTH / 2;
+	data.mouse.rota_y = SCREEN_HEIGHT / 2;
 
 	data.screen = create_screen();
 	data.zoom = 100;

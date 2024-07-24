@@ -6,7 +6,7 @@
 /*   By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 16:59:24 by ptheo             #+#    #+#             */
-/*   Updated: 2024/07/23 17:51:39 by ptheo            ###   ########.fr       */
+/*   Updated: 2024/07/24 02:11:45 by ptheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ typedef struct s_pos
 	double	i;
 	double	j;
 	double	z;
-	int	    x;
-	int	    y;
+	double	x;
+	double	y;
 }				t_pos;
 
 typedef struct s_var

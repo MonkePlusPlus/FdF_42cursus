@@ -6,7 +6,7 @@
 /*   By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:45:18 by ptheo             #+#    #+#             */
-/*   Updated: 2024/07/23 18:31:40 by ptheo            ###   ########.fr       */
+/*   Updated: 2024/07/24 02:14:39 by ptheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,29 @@
 
 void	create_line(t_data *data, t_pos pos0, t_pos pos1)
 {
-	int	x;
-	int	y;
+	double	x;
+	double	y;
 	int	n;
-	int	max;
+	double	max;
 
 	n = 0;
 	x = pos1.x - pos0.x;
 	y = pos1.y - pos0.y;
-	max = fmax(abs(x), abs(y));
-	if (max != 0)
+	max = sqrt(x * x + y * y);
+	if (max > 0)
 	{
 		x /= max;
 		y /= max;
 	}
-	while (n < max)
+	while (n <= max)
 	{
 		if (pos0.x > 0 && pos0.x < SCREEN_HEIGHT && pos0.y > 0
 			&& pos0.y < SCREEN_WIDTH)
 		{
-			if (data->screen[pos0.x][pos0.y] == 0)
+			if (data->screen[(int)pos0.x][(int)pos0.y] == 0)
 			{
 				put_pixel(data, pos0.x, pos0.y, WHITE);
-				data->screen[pos0.x][pos0.y] = 1;
+				data->screen[(int)pos0.x][(int)pos0.y] = 1;
 			}
 		}
 		pos0.x += x;
@@ -77,13 +77,17 @@ void	create_field(t_data *data)
 			//printf("APRES a = %f b = %f c = %f\n", mat[i][j].a, mat[i][j].b, mat[i][j].c);
 			pitch(data->axis, &mat[i][j]);
 			yaw(data->axis, &mat[i][j]);
-			mat[i][j].x = (int)(data->zoom * mat[i][j].a) + (SCREEN_WIDTH / 2);
-			mat[i][j].y = (int)(data->zoom * mat[i][j].b) + (SCREEN_HEIGHT / 2);
-			//printf("i = %f j = %f x = %d y = %d\n", mat[i][j].i, mat[i][j].j, mat[i][j].x, mat[i][j].y);
-			if (i > 0)
-				create_line(data, mat[i][j], mat[i - 1][j]);
+			mat[i][j].x = (int)(data->zoom * mat[i][j].a) + (SCREEN_WIDTH / 2) + data->pos.x;
+			mat[i][j].y = (int)(data->zoom * mat[i][j].b) + (SCREEN_HEIGHT / 2) + data->pos.y;
+			//printf("i = %d j = %d x = %f y = %f\n", i, j, mat[i][j].x, mat[i][j].y);
 			if (j > 0)
 				create_line(data, mat[i][j], mat[i][j - 1]);
+			if (i > 0)
+			{
+				//printf("x0 = %f y0 = %f\n", mat[i][j].x, mat[i][j].y);
+				//printf("x1 = %f y1 = %f\n", mat[i - 1][j].x, mat[i - 1][j].y);
+				create_line(data, mat[i][j], mat[i - 1][j]);
+			}
 			j++;
 		}
 		i++;
