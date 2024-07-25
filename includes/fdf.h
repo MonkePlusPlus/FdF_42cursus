@@ -6,7 +6,7 @@
 /*   By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 16:59:24 by ptheo             #+#    #+#             */
-/*   Updated: 2024/07/24 02:11:45 by ptheo            ###   ########.fr       */
+/*   Updated: 2024/07/25 18:15:29 by ptheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,13 @@
 # include <stdint.h>
 # include <math.h>
 
-# define SCREEN_WIDTH 800
-# define SCREEN_HEIGHT 800
+# define SCREEN_WIDTH 1920
+# define SCREEN_HEIGHT 1080
 
 # define WHITE 0xFFFFFFFF
 # define BLACK 0x00000000
+
+# define WHITE_SPACE " \f\n\r\t\v"
 
 /* STRUCT */
 typedef struct s_pixel
@@ -74,6 +76,12 @@ typedef struct s_mouse
 	int	rota_y;
 }				t_mouse;
 
+typedef struct s_line
+{
+	char	**line;
+	struct s_line	*next;
+}				t_line;
+
 typedef struct s_data
 {
 	t_var	var;
@@ -82,7 +90,10 @@ typedef struct s_data
 	t_mouse	mouse;
 	t_axe	axis;
     t_pos   **matrix;
-    int     length;
+	double	middle_x;
+	double	middle_y;
+    int     width;
+	int		height;
 	int		**screen;
     int     zoom;
 	int		rendering;
@@ -103,7 +114,16 @@ void    free_tab(int **tab, int size);
 /* CREATE FIGURE */
 void	create_line(t_data *data, t_pos pos0, t_pos pos1);
 void	create_field(t_data *data);
-t_pos	**create_matrix();
+
+/* MATRIX MAP */
+t_pos	**create_matrix(t_line *map, t_data *data);
+t_line	*create_map(int fd, t_data *data);
+void	maplen(t_line *list, t_data *data);
+void	print_map(t_line *map);
+
+/* SPLIT */
+int	check_char(char s, char *c);
+char	**better_split(char const *s, char *c);
 
 /* POSITION POINT & ROTATION */
 t_pos	new_pos(int x, int y, int z);
@@ -124,5 +144,10 @@ int	close_window(int keycode, t_data *data);
 
 /* RENDER */
 int	render_next_frame(t_data *data);
+
+/* CHAIN LIST LINE */
+t_line	*new_line(char **content);
+void	line_add(t_line **lst, t_line *new);
+void	line_clear(t_line **lst, void (*del)(void *));
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 12:03:58 by ptheo             #+#    #+#             */
-/*   Updated: 2024/07/24 02:15:55 by ptheo            ###   ########.fr       */
+/*   Updated: 2024/07/25 14:48:32 by ptheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,10 @@ int	mouse_click(int mousecode, int x, int y, t_data *data)
 		data->mouse.left = 1;
 	else if (mousecode == 3)
 		data->mouse.right = 1;
+	else if (mousecode == 4)
+		data->zoom += 20;
+	else if (mousecode == 5 && data->zoom - 20 > 1)
+		data->zoom -= 20;
 	return (0);
 }
 

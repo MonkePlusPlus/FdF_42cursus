@@ -6,7 +6,7 @@
 /*   By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:45:18 by ptheo             #+#    #+#             */
-/*   Updated: 2024/07/24 02:14:39 by ptheo            ###   ########.fr       */
+/*   Updated: 2024/07/25 18:39:20 by ptheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,13 @@ void	create_line(t_data *data, t_pos pos0, t_pos pos1)
 	}
 	while (n <= max)
 	{
-		if (pos0.x > 0 && pos0.x < SCREEN_HEIGHT && pos0.y > 0
-			&& pos0.y < SCREEN_WIDTH)
+		if (pos0.x > 0 && pos0.x < SCREEN_WIDTH && pos0.y > 0
+			&& pos0.y < SCREEN_HEIGHT)
 		{
-			if (data->screen[(int)pos0.x][(int)pos0.y] == 0)
+			if (data->screen[(int)pos0.y][(int)pos0.x] == 0)
 			{
 				put_pixel(data, pos0.x, pos0.y, WHITE);
-				data->screen[(int)pos0.x][(int)pos0.y] = 1;
+				data->screen[(int)pos0.y][(int)pos0.x] = 1;
 			}
 		}
 		pos0.x += x;
@@ -64,14 +64,14 @@ void	create_field(t_data *data)
 	i = 0;
 	mat = data->matrix;
 	data->inrendering = 1;
-	while (i < data->length)
+	while (i < data->height)
 	{
 		j = 0;
-		while (j < data->length)
+		while (j < data->width)
 		{
-			mat[i][j].a = mat[i][j].i;
+			mat[i][j].a = mat[i][j].i - data->middle_x;
 			mat[i][j].b = mat[i][j].j;
-			mat[i][j].c = mat[i][j].z;
+			mat[i][j].c = mat[i][j].z - data->middle_y;
 			//printf("AVANT a = %f b = %f c = %f\n", mat[i][j].a, mat[i][j].b, mat[i][j].c);
 			roll(data->axis, &mat[i][j]);
 			//printf("APRES a = %f b = %f c = %f\n", mat[i][j].a, mat[i][j].b, mat[i][j].c);
@@ -95,10 +95,32 @@ void	create_field(t_data *data)
 	data->inrendering = 0;
 }
 
-t_pos	**create_matrix()
+t_pos	**create_matrix(t_line *map, t_data *data)
 {
 	t_pos	**mat;
+	int		y;
+	int		i;
+	int		j;
 
+	i = data->height - 1;
+	mat = (t_pos **)malloc(sizeof(t_pos *) * data->height);
+	while (i >= 0)
+	{
+		mat[i] = (t_pos *)malloc(sizeof(t_pos) * data->width);
+		j = 0;
+		while (j < data->width)
+		{
+			y = ft_atoi(map->line[j]);
+			printf("%s ", map->line[j]);
+			mat[i][j] = new_pos(i, y, j);
+			j++;
+		}
+		printf("\n");
+		i--;
+		map = map->next;
+	}
+	return (mat);
+/*
 	mat = (t_pos **)malloc(sizeof(t_pos *) * 2);
 	mat[0] = (t_pos *)malloc(sizeof(t_pos) * 2);
 	mat[1] = (t_pos *)malloc(sizeof(t_pos) * 2);
@@ -106,5 +128,6 @@ t_pos	**create_matrix()
 	mat[0][1] = new_pos(1, 0, 0);
 	mat[1][0] = new_pos(0, 0, 1);
 	mat[1][1] = new_pos(1, 0, 1);
+*/
 	return (mat);
 }

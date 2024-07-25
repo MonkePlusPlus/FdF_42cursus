@@ -6,7 +6,7 @@
 #    By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/17 16:56:21 by ptheo             #+#    #+#              #
-#    Updated: 2024/07/23 17:13:41 by ptheo            ###   ########.fr        #
+#    Updated: 2024/07/25 16:22:05 by ptheo            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,9 @@ FILE	+= keytouch.c
 FILE	+= background.c
 FILE	+= render.c
 FILE	+= rotation.c
+FILE	+= list.c
+FILE	+= parsing.c
+FILE	+= func_split.c
 # END FILE
 
 SRC_FILE = $(addprefix $(SRC), $(FILE))
