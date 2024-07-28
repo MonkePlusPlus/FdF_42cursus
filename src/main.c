@@ -6,7 +6,7 @@
 /*   By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 15:25:15 by ptheo             #+#    #+#             */
-/*   Updated: 2024/07/28 20:13:54 by ptheo            ###   ########.fr       */
+/*   Updated: 2024/07/28 22:50:30 by ptheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,15 @@ int	main(int ac, char **av)
 	{
 		fd = open(av[1], O_RDONLY);
 		data.mlx = mlx_init();
-		data.pixel = create_pixel(data.mlx);
+		if (data.mlx == NULL)
+			return (1);
 		data.win = mlx_new_window(data.mlx, SCREEN_WIDTH, SCREEN_HEIGHT,
 				"fdf");
-			
-	
+		if (data.win == NULL)
+			return (free(data.mlx), 1);
+		data.pixel = create_pixel(data.mlx);
+		if (data.pixel == NULL)
+			return (free(data.mlx), free(data.win), 1);
 		data.axis.alpha = 49 * M_PI / 180;
 		data.axis.beta = 35.264 * M_PI / 180;
 		data.axis.delta = 30.736 * M_PI / 180;
@@ -60,14 +64,13 @@ int	main(int ac, char **av)
 		data.pos.y = 0;
 
 		mlx_loop_hook(data.mlx, &render_next_frame, &data);
-		mlx_hook(data.win, 4, 1L << 2, mouse_click, &data);
-		mlx_hook(data.win, 5, 1L << 3, mouse_release, &data);
-		mlx_hook(data.win, 6, 1L << 13, mouse_movement, &data);
-		mlx_hook(data.win, 2, 1L << 0, key_touch, &data);
-		mlx_hook(data.win, 17, 1L << 19, close_window, &data);
+		mlx_hook(data.win, 17, 1L << 19, &close_window, &data);
+		mlx_hook(data.win, 4, 1L << 2, &mouse_click, &data);
+		mlx_hook(data.win, 5, 1L << 3, &mouse_release, &data);
+		mlx_hook(data.win, 6, 1L << 13, &mouse_movement, &data);
+		mlx_hook(data.win, 2, 1L << 0, &key_touch, &data);
 		mlx_loop(data.mlx);
-		mlx_destroy_image(data.mlx, data.pixel);
-		mlx_destroy_window(data.mlx, data.win);
+		//freeall(&data);
 		
 		close(fd);
 	}

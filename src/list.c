@@ -6,7 +6,7 @@
 /*   By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 15:41:59 by ptheo             #+#    #+#             */
-/*   Updated: 2024/07/25 16:22:21 by ptheo            ###   ########.fr       */
+/*   Updated: 2024/07/28 21:31:52 by ptheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,20 @@ void	line_add(t_line **lst, t_line *new)
 		line_add(&(*lst)->next, new);
 }
 
-void	line_clear(t_line **lst, void (*del)(void *))
+void	free_line(char **line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i])
+	{
+		free(line[i]);
+		i++;
+	}
+	free(line);
+}
+
+void	line_clear(t_line **lst, void (*del)(char **))
 {
 	t_line	*current;
 

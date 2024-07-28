@@ -6,7 +6,7 @@
 /*   By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 16:59:24 by ptheo             #+#    #+#             */
-/*   Updated: 2024/07/28 20:07:19 by ptheo            ###   ########.fr       */
+/*   Updated: 2024/07/28 22:52:56 by ptheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,10 @@
 # include <stdarg.h>
 # include <stdint.h>
 # include <math.h>
+
+#ifndef M_PI
+# define M_PI 3.14
+#endif
 
 # define SCREEN_WIDTH 1920
 # define SCREEN_HEIGHT 1080
@@ -145,7 +149,9 @@ int mouse_click(int mousecode, int x, int y, t_data *data);
 int mouse_release(int mousecode, int x, int y, t_data *data);
 
 /* CLOSE WINDOW */
-int	close_window(int keycode, t_data *data);
+int		close_window(t_data *data);
+void	freeall(t_data *data);
+void	clear_tab(void **tab, int size);
 
 /* RENDER */
 int	render_next_frame(t_data *data);
@@ -153,7 +159,8 @@ int	render_next_frame(t_data *data);
 /* CHAIN LIST LINE */
 t_line	*new_line(char **content);
 void	line_add(t_line **lst, t_line *new);
-void	line_clear(t_line **lst, void (*del)(void *));
+void	line_clear(t_line **lst, void (*del)(char **));
+void	free_line(char **line);
 
 /* TEXT */
 void	affiche_text(t_data *data);

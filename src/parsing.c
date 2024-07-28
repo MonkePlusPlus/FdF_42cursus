@@ -6,7 +6,7 @@
 /*   By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:49:18 by ptheo             #+#    #+#             */
-/*   Updated: 2024/07/28 17:02:57 by ptheo            ###   ########.fr       */
+/*   Updated: 2024/07/28 22:16:15 by ptheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ void	print_map(t_line *map)
 void	maplen(t_line *list, t_data *data)
 {
 	t_line	*current;
-	int	count;
-	int	i;
+	int		count;
+	int		i;
 
 	count = 0;
 	i = 0;

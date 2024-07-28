@@ -6,7 +6,7 @@
 /*   By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:45:18 by ptheo             #+#    #+#             */
-/*   Updated: 2024/07/28 17:51:19 by ptheo            ###   ########.fr       */
+/*   Updated: 2024/07/28 22:15:08 by ptheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	create_line(t_data *data, t_pos pos0, t_pos pos1, t_color color)
 {
 	double	x;
 	double	y;
-	int	n;
+	int		n;
 	double	max;
 
 	n = 0;
@@ -58,7 +58,7 @@ t_pos	new_pos(int x, int y, int z)
 void	create_field(t_data *data)
 {
 	t_pos		**mat;
-	t_color 	color;
+	t_color		color;
 	int			i;
 	int			j;
 
@@ -80,8 +80,10 @@ void	create_field(t_data *data)
 			//printf("APRES a = %f b = %f c = %f\n", mat[i][j].a, mat[i][j].b, mat[i][j].c);
 			pitch(data->axis, &mat[i][j]);
 			yaw(data->axis, &mat[i][j]);
-			mat[i][j].x = (int)(data->zoom * mat[i][j].a) + (SCREEN_WIDTH / 2) + data->pos.x;
-			mat[i][j].y = (int)(data->zoom * mat[i][j].b) + (SCREEN_HEIGHT / 2) + data->pos.y;
+			mat[i][j].x = (int)(data->zoom * mat[i][j].a) + (SCREEN_WIDTH / 2)
+				+ data->pos.x;
+			mat[i][j].y = (int)(data->zoom * mat[i][j].b) + (SCREEN_HEIGHT / 2)
+				+ data->pos.y;
 			//printf("i = %d j = %d x = %f y = %f\n", i, j, mat[i][j].x, mat[i][j].y);
 			if (j > 0)
 			{
@@ -133,6 +135,7 @@ t_pos	**create_matrix(t_line *map, t_data *data)
 		i++;
 		map = map->next;
 	}
+	line_clear(&map, free_line);
 	return (mat);
 /*
 	mat = (t_pos **)malloc(sizeof(t_pos *) * 2);

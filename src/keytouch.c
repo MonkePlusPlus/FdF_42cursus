@@ -6,7 +6,7 @@
 /*   By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 12:03:58 by ptheo             #+#    #+#             */
-/*   Updated: 2024/07/28 17:52:24 by ptheo            ###   ########.fr       */
+/*   Updated: 2024/07/28 22:55:56 by ptheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,5 +89,7 @@ int	key_touch(int keycode, t_data *data)
 		data->rendering = 1;
 		data->axis.delta += 0.04;
 	}
+	else if (keycode == 65307)
+		close_window(data);
 	return (0);
 }
