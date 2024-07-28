@@ -6,7 +6,7 @@
 /*   By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 16:59:24 by ptheo             #+#    #+#             */
-/*   Updated: 2024/07/26 19:25:55 by ptheo            ###   ########.fr       */
+/*   Updated: 2024/07/28 20:07:19 by ptheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,12 +69,6 @@ typedef struct s_pos
 	double	y;
 }				t_pos;
 
-typedef struct s_var
-{
-	void	*mlx;
-	void	*win;
-}				t_var;
-
 typedef struct s_mouse
 {
 	int	right;
@@ -93,7 +87,8 @@ typedef struct s_line
 
 typedef struct s_data
 {
-	t_var	var;
+	void	*mlx;
+	void	*win;
 	t_pos	pos;
 	t_pixel	*pixel;
 	t_mouse	mouse;
@@ -165,5 +160,7 @@ void	affiche_text(t_data *data);
 
 /* COLOR */
 t_color	new_color(int color1, int color2);
+t_color	full_color(t_pos pos1, t_pos pos2);
+int		pick_color(t_pos pos);
 
 #endif

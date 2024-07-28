@@ -6,7 +6,7 @@
 #    By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/17 16:56:21 by ptheo             #+#    #+#              #
-#    Updated: 2024/07/26 17:07:05 by ptheo            ###   ########.fr        #
+#    Updated: 2024/07/28 20:14:14 by ptheo            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ FILE	+= parsing.c
 FILE	+= func_split.c
 FILE	+= text.c
 FILE	+= color.c
+FILE	+= quit.c
 # END FILE
 
 SRC_FILE = $(addprefix $(SRC), $(FILE))

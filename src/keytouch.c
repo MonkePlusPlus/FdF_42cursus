@@ -6,7 +6,7 @@
 /*   By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 12:03:58 by ptheo             #+#    #+#             */
-/*   Updated: 2024/07/26 19:26:43 by ptheo            ###   ########.fr       */
+/*   Updated: 2024/07/28 17:52:24 by ptheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,22 +26,22 @@ int	mouse_movement(int x, int y, t_data *data)
 	if (data->mouse.left && !data->mouse.right && data->inrendering == 0)
 	{
 		ft_printf("left x = %d y = %d\n", x, y);
-		data->pos.x += ft_cmppos(data->mouse.vector_x, x, 2);
-		data->pos.y += ft_cmppos(data->mouse.vector_y, y, 2);
+		data->pos.x += ft_cmppos(data->mouse.vector_x, x, 5);
+		data->pos.y += ft_cmppos(data->mouse.vector_y, y, 5);
 		data->mouse.vector_x = x;
 		data->mouse.vector_y = y;
 	}
 	else if (data->mouse.right && !data->mouse.left && data->rendering == 0)
 	{
 		ft_printf("right x = %d y = %d\n", x, y);
-		if (data->mouse.rota_x > x)
-			data->axis.beta += 0.03;
-		else if (data->mouse.rota_x < x)
-			data->axis.beta -= 0.03;
-		if (data->mouse.rota_y > y)
+		if (data->mouse.rota_x < x)
 			data->axis.alpha += 0.03;
-		else if (data->mouse.rota_y < y)
+		else if (data->mouse.rota_x > x)
 			data->axis.alpha -= 0.03;
+		if (data->mouse.rota_y < y)
+			data->axis.beta += 0.03;
+		else if (data->mouse.rota_y > y)
+			data->axis.beta -= 0.03;
 		data->mouse.rota_x = x;
 		data->mouse.rota_y = y;
 	}
