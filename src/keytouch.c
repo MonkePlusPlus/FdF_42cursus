@@ -6,7 +6,7 @@
 /*   By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 12:03:58 by ptheo             #+#    #+#             */
-/*   Updated: 2024/07/25 14:48:32 by ptheo            ###   ########.fr       */
+/*   Updated: 2024/07/26 19:26:43 by ptheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,16 +70,24 @@ int	mouse_click(int mousecode, int x, int y, t_data *data)
 	else if (mousecode == 3)
 		data->mouse.right = 1;
 	else if (mousecode == 4)
-		data->zoom += 20;
-	else if (mousecode == 5 && data->zoom - 20 > 1)
-		data->zoom -= 20;
+		data->zoom += 5;
+	else if (mousecode == 5 && data->zoom - 5 > 1)
+		data->zoom -= 5;
 	return (0);
 }
 
 int	key_touch(int keycode, t_data *data)
 {
-	mlx_clear_window(data->var.mlx, data->var.win);
-	data->inrendering = 1;
 	ft_printf("key : %d\n", keycode);
+	if (keycode == 65361)
+	{
+		data->rendering = 1;
+		data->axis.delta -= 0.04;
+	}
+	else if (keycode == 65363)
+	{
+		data->rendering = 1;
+		data->axis.delta += 0.04;
+	}
 	return (0);
 }

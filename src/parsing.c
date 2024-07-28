@@ -6,7 +6,7 @@
 /*   By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:49:18 by ptheo             #+#    #+#             */
-/*   Updated: 2024/07/25 18:02:47 by ptheo            ###   ########.fr       */
+/*   Updated: 2024/07/26 18:23:00 by ptheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,9 @@ void	maplen(t_line *list, t_data *data)
 	}
 	while (list->line[i])
 		i++;
-	data->height = count;
+	data->prof = count;
 	data->width = i;
-	printf("height : %d width : %d\n", data->height, data->width);
+	printf("prof : %d width : %d\n", data->prof, data->width);
 }
 
 t_line	*create_map(int fd, t_data *data)

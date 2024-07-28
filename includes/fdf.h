@@ -6,7 +6,7 @@
 /*   By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 16:59:24 by ptheo             #+#    #+#             */
-/*   Updated: 2024/07/25 18:15:29 by ptheo            ###   ########.fr       */
+/*   Updated: 2024/07/26 19:25:55 by ptheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,19 @@
 
 # define WHITE 0xFFFFFFFF
 # define BLACK 0x00000000
+# define RED 0x00FF0000
+# define GREEN 0x0000FF00
+# define BLUE 0x000000FF
 
 # define WHITE_SPACE " \f\n\r\t\v"
 
 /* STRUCT */
+typedef struct s_color
+{
+	int	start;
+	int	end;
+}				t_color;
+
 typedef struct s_pixel
 {
 	void	*pixel;
@@ -94,8 +103,9 @@ typedef struct s_data
 	double	middle_y;
     int     width;
 	int		height;
+	int		prof;
 	int		**screen;
-    int     zoom;
+    int		zoom;
 	int		rendering;
 	int		inrendering;
 }				t_data;
@@ -112,7 +122,7 @@ int **create_screen();
 void    free_tab(int **tab, int size);
 
 /* CREATE FIGURE */
-void	create_line(t_data *data, t_pos pos0, t_pos pos1);
+void	create_line(t_data *data, t_pos pos0, t_pos pos1, t_color color);
 void	create_field(t_data *data);
 
 /* MATRIX MAP */
@@ -149,5 +159,11 @@ int	render_next_frame(t_data *data);
 t_line	*new_line(char **content);
 void	line_add(t_line **lst, t_line *new);
 void	line_clear(t_line **lst, void (*del)(void *));
+
+/* TEXT */
+void	affiche_text(t_data *data);
+
+/* COLOR */
+t_color	new_color(int color1, int color2);
 
 #endif

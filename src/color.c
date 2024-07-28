@@ -1,26 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render.c                                           :+:      :+:    :+:   */
+/*   color.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/15 22:33:24 by ptheo             #+#    #+#             */
-/*   Updated: 2024/07/26 18:44:36 by ptheo            ###   ########.fr       */
+/*   Created: 2024/07/26 17:04:48 by ptheo             #+#    #+#             */
+/*   Updated: 2024/07/26 17:23:32 by ptheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 
-int	render_next_frame(t_data *data)
+t_color	new_color(int color1, int color2)
 {
-	create_backgound(data);
-	if (data->inrendering == 0)
-	{
-		create_field(data);
-		//create_line(data, new_pos(400, 400, 0), new_pos(442, 353, 0));
-	}
-	mlx_put_image_to_window(data->var.mlx, data->var.win, data->pixel->pixel, 0, 0);
-	affiche_text(data);
-	return (0);
+	t_color color;
+
+	color.start = color1;
+	color.end = color2;
+	return (color);
 }

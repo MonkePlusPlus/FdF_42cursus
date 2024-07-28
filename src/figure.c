@@ -6,13 +6,13 @@
 /*   By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:45:18 by ptheo             #+#    #+#             */
-/*   Updated: 2024/07/25 18:39:20 by ptheo            ###   ########.fr       */
+/*   Updated: 2024/07/27 01:25:18 by ptheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 
-void	create_line(t_data *data, t_pos pos0, t_pos pos1)
+void	create_line(t_data *data, t_pos pos0, t_pos pos1, t_color color)
 {
 	double	x;
 	double	y;
@@ -35,10 +35,12 @@ void	create_line(t_data *data, t_pos pos0, t_pos pos1)
 		{
 			if (data->screen[(int)pos0.y][(int)pos0.x] == 0)
 			{
-				put_pixel(data, pos0.x, pos0.y, WHITE);
+				put_pixel(data, pos0.x, pos0.y, color.start);
 				data->screen[(int)pos0.y][(int)pos0.x] = 1;
 			}
 		}
+		if (color.start != color.end)
+			color.start -= color.end / 8;
 		pos0.x += x;
 		pos0.y += y;
 		n++;
@@ -64,11 +66,12 @@ void	create_field(t_data *data)
 	i = 0;
 	mat = data->matrix;
 	data->inrendering = 1;
-	while (i < data->height)
+	while (i < data->prof)
 	{
 		j = 0;
 		while (j < data->width)
 		{
+			//printf("middle x : %f middle y : %f\n", data->middle_x, data->middle_y);
 			mat[i][j].a = mat[i][j].i - data->middle_x;
 			mat[i][j].b = mat[i][j].j;
 			mat[i][j].c = mat[i][j].z - data->middle_y;
@@ -81,12 +84,19 @@ void	create_field(t_data *data)
 			mat[i][j].y = (int)(data->zoom * mat[i][j].b) + (SCREEN_HEIGHT / 2) + data->pos.y;
 			//printf("i = %d j = %d x = %f y = %f\n", i, j, mat[i][j].x, mat[i][j].y);
 			if (j > 0)
-				create_line(data, mat[i][j], mat[i][j - 1]);
+			{
+				//ft_printf("j1 = %d j2 = %d\n", mat[i][j].j, mat[i][j - 1].j);
+				//printf("color start : %X\ncolor end : %X\n\n", WHITE + (int)mat[i][j].j * 10, WHITE + (int)mat[i][j - 1].j * 10);
+				create_line(data, mat[i][j], mat[i][j - 1], new_color(WHITE / (1 - (int)mat[i][j].j), WHITE / (1 - (int)mat[i][j - 1].j)));
+				//create_line(data, mat[i][j], mat[i][j - 1], new_color(WHITE, WHITE));
+			}
 			if (i > 0)
 			{
 				//printf("x0 = %f y0 = %f\n", mat[i][j].x, mat[i][j].y);
 				//printf("x1 = %f y1 = %f\n", mat[i - 1][j].x, mat[i - 1][j].y);
-				create_line(data, mat[i][j], mat[i - 1][j]);
+				//printf("color start : %X\ncolor end : %X\n\n", WHITE + (int)mat[i][j].j * 100, WHITE + (int)mat[i - 1][j].j * 100);
+				create_line(data, mat[i][j], mat[i - 1][j], new_color(WHITE / (1 - ((int)mat[i][j].j)), WHITE / (1 - (int)mat[i - 1][j].j)));
+				//create_line(data, mat[i][j], mat[i - 1][j], new_color(WHITE, WHITE));
 			}
 			j++;
 		}
@@ -102,21 +112,24 @@ t_pos	**create_matrix(t_line *map, t_data *data)
 	int		i;
 	int		j;
 
-	i = data->height - 1;
-	mat = (t_pos **)malloc(sizeof(t_pos *) * data->height);
-	while (i >= 0)
+	i = 0;
+	mat = (t_pos **)malloc(sizeof(t_pos *) * data->prof);
+	while (i < data->prof)
 	{
 		mat[i] = (t_pos *)malloc(sizeof(t_pos) * data->width);
 		j = 0;
 		while (j < data->width)
 		{
 			y = ft_atoi(map->line[j]);
-			printf("%s ", map->line[j]);
-			mat[i][j] = new_pos(i, y, j);
+			//printf("%d\n", y);
+			//printf("%s ", map->line[j]);
+			mat[i][j] = new_pos(i, -y, j);
+			if (data->height < y)
+				data->height = y;
 			j++;
 		}
 		printf("\n");
-		i--;
+		i++;
 		map = map->next;
 	}
 	return (mat);
