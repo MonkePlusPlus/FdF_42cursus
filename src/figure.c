@@ -6,7 +6,7 @@
 /*   By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:45:18 by ptheo             #+#    #+#             */
-/*   Updated: 2024/07/28 22:15:08 by ptheo            ###   ########.fr       */
+/*   Updated: 2024/07/30 15:11:45 by ptheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,30 +112,36 @@ void	create_field(t_data *data)
 t_pos	**create_matrix(t_line *map, t_data *data)
 {
 	t_pos	**mat;
+	t_line	*current;
 	int		y;
 	int		i;
 	int		j;
 
 	i = 0;
+	current = map;
 	mat = (t_pos **)malloc(sizeof(t_pos *) * data->prof);
+	if (mat == NULL)
+		return (line_clear(&map, &free_line), NULL);
 	while (i < data->prof)
 	{
 		mat[i] = (t_pos *)malloc(sizeof(t_pos) * data->width);
+		if (mat[i] == NULL)
+			return (line_clear(&map, &free_line), clear_tab((void **)mat, i), NULL);
 		j = 0;
 		while (j < data->width)
 		{
-			y = ft_atoi(map->line[j]);
+			y = ft_atoi(current->line[j]);
 			//printf("%d\n", y);
 			//printf("%s ", map->line[j]);
-			printf("%f /", i - data->middle_y);
+			//printf("%f /", i - data->middle_y);
 			mat[i][j] = new_pos(i, -y, j);
 			j++;
 		}
-		printf("\n");
+		//printf("\n");
 		i++;
-		map = map->next;
+		current = current->next;
 	}
-	line_clear(&map, free_line);
+	line_clear(&map, &free_line);
 	return (mat);
 /*
 	mat = (t_pos **)malloc(sizeof(t_pos *) * 2);

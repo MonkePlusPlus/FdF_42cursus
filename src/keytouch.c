@@ -6,7 +6,7 @@
 /*   By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 12:03:58 by ptheo             #+#    #+#             */
-/*   Updated: 2024/07/28 22:55:56 by ptheo            ###   ########.fr       */
+/*   Updated: 2024/07/30 14:57:21 by ptheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	mouse_movement(int x, int y, t_data *data)
 {
 	if (data->mouse.left && !data->mouse.right && data->inrendering == 0)
 	{
-		ft_printf("left x = %d y = %d\n", x, y);
+		//ft_printf("left x = %d y = %d\n", x, y);
 		data->pos.x += ft_cmppos(data->mouse.vector_x, x, 5);
 		data->pos.y += ft_cmppos(data->mouse.vector_y, y, 5);
 		data->mouse.vector_x = x;
@@ -33,7 +33,7 @@ int	mouse_movement(int x, int y, t_data *data)
 	}
 	else if (data->mouse.right && !data->mouse.left && data->rendering == 0)
 	{
-		ft_printf("right x = %d y = %d\n", x, y);
+		//ft_printf("right x = %d y = %d\n", x, y);
 		if (data->mouse.rota_x < x)
 			data->axis.alpha += 0.03;
 		else if (data->mouse.rota_x > x)
@@ -73,6 +73,8 @@ int	mouse_click(int mousecode, int x, int y, t_data *data)
 		data->zoom += 5;
 	else if (mousecode == 5 && data->zoom - 5 > 1)
 		data->zoom -= 5;
+	else if (mousecode == 5 && data->zoom - 1 > 0)
+		data->zoom -= 1;
 	return (0);
 }
 
@@ -91,5 +93,16 @@ int	key_touch(int keycode, t_data *data)
 	}
 	else if (keycode == 65307)
 		close_window(data);
+	else if (keycode == 105)
+	{
+		data->axis.alpha = 49 * M_PI / 180;
+		data->axis.beta = 35.264 * M_PI / 180;
+		data->axis.delta = 30.736 * M_PI / 180;
+	}
+	else if (keycode == 32)
+	{
+		data->pos.x = 0;
+		data->pos.y = 0;
+	}
 	return (0);
 }

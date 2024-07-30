@@ -6,24 +6,11 @@
 /*   By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 22:51:24 by ptheo             #+#    #+#             */
-/*   Updated: 2024/07/28 22:12:16 by ptheo            ###   ########.fr       */
+/*   Updated: 2024/07/30 15:13:29 by ptheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
-
-void	free_tab(int **tab, int size)
-{
-	int	i;
-
-	i = 0;
-	while (i < size)
-	{
-		free(tab[i]);
-		i++;
-	}
-	free(tab);
-}
 
 int	**create_screen(void)
 {
@@ -38,7 +25,7 @@ int	**create_screen(void)
 	{
 		tab[i] = (int *)ft_calloc(sizeof(int *), SCREEN_WIDTH);
 		if (tab[i] == NULL)
-			return (free_tab(tab, i), NULL);
+			return (clear_tab((void **)tab, i), NULL);
 		i++;
 	}
 	return (tab);

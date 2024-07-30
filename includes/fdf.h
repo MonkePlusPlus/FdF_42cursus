@@ -6,7 +6,7 @@
 /*   By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 16:59:24 by ptheo             #+#    #+#             */
-/*   Updated: 2024/07/28 22:52:56 by ptheo            ###   ########.fr       */
+/*   Updated: 2024/07/30 15:13:42 by ptheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,6 @@ void	clear_pixel(t_pixel *pixel);
 /* BACKGROUND */
 void create_backgound(t_data *data);
 int **create_screen();
-void    free_tab(int **tab, int size);
 
 /* CREATE FIGURE */
 void	create_line(t_data *data, t_pos pos0, t_pos pos1, t_color color);
