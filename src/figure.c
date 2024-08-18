@@ -6,7 +6,7 @@
 /*   By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:45:18 by ptheo             #+#    #+#             */
-/*   Updated: 2024/08/18 18:38:47 by ptheo            ###   ########.fr       */
+/*   Updated: 2024/08/18 19:54:06 by ptheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,8 @@ void	check_pixel(t_data *data, t_pos pos0, t_pos pos1)
 	if (pos0.x > 0 && pos0.x < SCREEN_WIDTH && pos0.y > 0
 		&& pos0.y < SCREEN_HEIGHT)
 	{
-		if (data->screen[(int)pos0.y][(int)pos0.x] == 0)
-		{
-			put_pixel(data, pos0.x, pos0.y, hexa_color(pos0.color));
-			data->screen[(int)pos0.y][(int)pos0.x] = 1;
-		}
+		put_pixel(data, pos0.x, pos0.y, hexa_color(pos0.color));
+		data->screen[(int)pos0.y][(int)pos0.x] = 1;
 	}
 }
 
