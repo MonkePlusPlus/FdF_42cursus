@@ -6,7 +6,7 @@
 /*   By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:49:18 by ptheo             #+#    #+#             */
-/*   Updated: 2024/07/28 22:16:15 by ptheo            ###   ########.fr       */
+/*   Updated: 2024/08/18 18:09:37 by ptheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ void	print_line(char **line)
 	i = 0;
 	while (line[i])
 	{
-		printf("%s ", line[i]);
+		ft_printf("%s ", line[i]);
 		i++;
 	}
-	printf("\n");
+	ft_printf("\n");
 }
 
 void	print_map(t_line *map)
@@ -55,7 +55,6 @@ void	maplen(t_line *list, t_data *data)
 		i++;
 	data->prof = count;
 	data->width = i;
-	printf("prof : %d width : %d\n", data->prof, data->width);
 }
 
 t_line	*create_map(int fd, t_data *data)
@@ -71,7 +70,6 @@ t_line	*create_map(int fd, t_data *data)
 	{
 		list_line = better_split(line, WHITE_SPACE);
 		list = new_line(list_line);
-		//print_line(list_line);
 		line_add(&start, list);
 		free(line);
 		line = get_next_line(fd);

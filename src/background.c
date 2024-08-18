@@ -6,7 +6,7 @@
 /*   By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 22:51:24 by ptheo             #+#    #+#             */
-/*   Updated: 2024/07/30 15:13:29 by ptheo            ###   ########.fr       */
+/*   Updated: 2024/08/18 17:57:23 by ptheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void	create_backgound(t_data *data)
 	int		j;
 
 	data->inrendering = 1;
-	//ft_printf("rendering background\n");
 	i = 0;
 	j = 0;
 	while (i < SCREEN_HEIGHT)

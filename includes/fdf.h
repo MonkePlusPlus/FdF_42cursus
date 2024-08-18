@@ -6,7 +6,7 @@
 /*   By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 16:59:24 by ptheo             #+#    #+#             */
-/*   Updated: 2024/07/30 15:13:42 by ptheo            ###   ########.fr       */
+/*   Updated: 2024/08/18 17:51:33 by ptheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # define SCREEN_WIDTH 1920
 # define SCREEN_HEIGHT 1080
 
-# define WHITE 0xFFFFFFFF
+# define WHITE 0x00FFFFFF
 # define BLACK 0x00000000
 # define RED 0x00FF0000
 # define GREEN 0x0000FF00
@@ -41,8 +41,9 @@
 /* STRUCT */
 typedef struct s_color
 {
-	int	start;
-	int	end;
+	int	red;
+	int	green;
+	int	blue;
 }				t_color;
 
 typedef struct s_pixel
@@ -71,6 +72,7 @@ typedef struct s_pos
 	double	z;
 	double	x;
 	double	y;
+	t_color	color;
 }				t_pos;
 
 typedef struct s_mouse
@@ -120,7 +122,7 @@ void create_backgound(t_data *data);
 int **create_screen();
 
 /* CREATE FIGURE */
-void	create_line(t_data *data, t_pos pos0, t_pos pos1, t_color color);
+void	create_line(t_data *data, t_pos pos0, t_pos pos1);
 void	create_field(t_data *data);
 
 /* MATRIX MAP */
@@ -165,8 +167,11 @@ void	free_line(char **line);
 void	affiche_text(t_data *data);
 
 /* COLOR */
-t_color	new_color(int color1, int color2);
-t_color	full_color(t_pos pos1, t_pos pos2);
-int		pick_color(t_pos pos);
+t_color	pick_color(long color);
+t_color	new_color(t_color color, t_color color2);
+long	hexa_color(t_color color);
+t_color	select_color(char *line);
+t_color	get_color(char **color);
+t_color	char_to_hexa(char *color);
 
 #endif

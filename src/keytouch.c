@@ -6,7 +6,7 @@
 /*   By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 12:03:58 by ptheo             #+#    #+#             */
-/*   Updated: 2024/07/30 14:57:21 by ptheo            ###   ########.fr       */
+/*   Updated: 2024/08/18 17:55:39 by ptheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int	mouse_movement(int x, int y, t_data *data)
 {
 	if (data->mouse.left && !data->mouse.right && data->inrendering == 0)
 	{
-		//ft_printf("left x = %d y = %d\n", x, y);
 		data->pos.x += ft_cmppos(data->mouse.vector_x, x, 5);
 		data->pos.y += ft_cmppos(data->mouse.vector_y, y, 5);
 		data->mouse.vector_x = x;
@@ -33,7 +32,6 @@ int	mouse_movement(int x, int y, t_data *data)
 	}
 	else if (data->mouse.right && !data->mouse.left && data->rendering == 0)
 	{
-		//ft_printf("right x = %d y = %d\n", x, y);
 		if (data->mouse.rota_x < x)
 			data->axis.alpha += 0.03;
 		else if (data->mouse.rota_x > x)

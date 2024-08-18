@@ -6,13 +6,26 @@
 /*   By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:45:18 by ptheo             #+#    #+#             */
-/*   Updated: 2024/07/30 15:11:45 by ptheo            ###   ########.fr       */
+/*   Updated: 2024/08/18 18:38:47 by ptheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 
-void	create_line(t_data *data, t_pos pos0, t_pos pos1, t_color color)
+void	check_pixel(t_data *data, t_pos pos0, t_pos pos1)
+{
+	if (pos0.x > 0 && pos0.x < SCREEN_WIDTH && pos0.y > 0
+		&& pos0.y < SCREEN_HEIGHT)
+	{
+		if (data->screen[(int)pos0.y][(int)pos0.x] == 0)
+		{
+			put_pixel(data, pos0.x, pos0.y, hexa_color(pos0.color));
+			data->screen[(int)pos0.y][(int)pos0.x] = 1;
+		}
+	}
+}
+
+void	create_line(t_data *data, t_pos pos0, t_pos pos1)
 {
 	double	x;
 	double	y;
@@ -30,15 +43,7 @@ void	create_line(t_data *data, t_pos pos0, t_pos pos1, t_color color)
 	}
 	while (n <= max)
 	{
-		if (pos0.x > 0 && pos0.x < SCREEN_WIDTH && pos0.y > 0
-			&& pos0.y < SCREEN_HEIGHT)
-		{
-			if (data->screen[(int)pos0.y][(int)pos0.x] == 0)
-			{
-				put_pixel(data, pos0.x, pos0.y, color.start);
-				data->screen[(int)pos0.y][(int)pos0.x] = 1;
-			}
-		}
+		check_pixel(data, pos0, pos1);
 		pos0.x += x;
 		pos0.y += y;
 		n++;
@@ -55,58 +60,21 @@ t_pos	new_pos(int x, int y, int z)
 	return (pos);
 }
 
-void	create_field(t_data *data)
+void	create_pos(t_data *data, t_line *current, t_pos *mat, int i)
 {
-	t_pos		**mat;
-	t_color		color;
-	int			i;
-	int			j;
+	int	j;
+	int	y;
 
-	i = 0;
-	mat = data->matrix;
-	data->inrendering = 1;
-	while (i < data->prof)
+	j = 0;
+	while (j < data->width)
 	{
-		j = 0;
-		while (j < data->width)
-		{
-			//printf("middle x : %f middle y : %f\n", data->middle_x, data->middle_y);
-			mat[i][j].a = mat[i][j].i - data->middle_y;
-			mat[i][j].b = mat[i][j].j;
-			//printf("a : %f b : %f\n", mat[i][j].a, mat[i][j].b);
-			mat[i][j].c = mat[i][j].z - data->middle_x;
-			//printf("AVANT a = %f b = %f c = %f\n", mat[i][j].a, mat[i][j].b, mat[i][j].c);
-			roll(data->axis, &mat[i][j]);
-			//printf("APRES a = %f b = %f c = %f\n", mat[i][j].a, mat[i][j].b, mat[i][j].c);
-			pitch(data->axis, &mat[i][j]);
-			yaw(data->axis, &mat[i][j]);
-			mat[i][j].x = (int)(data->zoom * mat[i][j].a) + (SCREEN_WIDTH / 2)
-				+ data->pos.x;
-			mat[i][j].y = (int)(data->zoom * mat[i][j].b) + (SCREEN_HEIGHT / 2)
-				+ data->pos.y;
-			//printf("i = %d j = %d x = %f y = %f\n", i, j, mat[i][j].x, mat[i][j].y);
-			if (j > 0)
-			{
-				color = full_color(mat[i][j], mat[i][j - 1]);
-				//ft_printf("j1 = %d j2 = %d\n", mat[i][j].j, mat[i][j - 1].j);
-				//printf("color start : %X\ncolor end : %X\n\n", WHITE + (int)mat[i][j].j * 10, WHITE + (int)mat[i][j - 1].j * 10);
-				create_line(data, mat[i][j], mat[i][j - 1], color);
-				//create_line(data, mat[i][j], mat[i][j - 1], new_color(WHITE, WHITE));
-			}
-			if (i > 0)
-			{
-				color = full_color(mat[i][j], mat[i - 1][j]);
-				//printf("x0 = %f y0 = %f\n", mat[i][j].x, mat[i][j].y);
-				//printf("x1 = %f y1 = %f\n", mat[i - 1][j].x, mat[i - 1][j].y);
-				//printf("color start : %X\ncolor end : %X\n\n", WHITE + (int)mat[i][j].j * 100, WHITE + (int)mat[i - 1][j].j * 100);
-				create_line(data, mat[i][j], mat[i - 1][j], color);
-				//create_line(data, mat[i][j], mat[i - 1][j], new_color(WHITE, WHITE));
-			}
-			j++;
-		}
-		i++;
+		y = ft_atoi(current->line[j]);
+		while (y > 100)
+			y /= 10;
+		mat[j] = new_pos(i, -y, j);
+		mat[j].color = select_color(current->line[j]);
+		j++;
 	}
-	data->inrendering = 0;
 }
 
 t_pos	**create_matrix(t_line *map, t_data *data)
@@ -115,7 +83,6 @@ t_pos	**create_matrix(t_line *map, t_data *data)
 	t_line	*current;
 	int		y;
 	int		i;
-	int		j;
 
 	i = 0;
 	current = map;
@@ -126,31 +93,12 @@ t_pos	**create_matrix(t_line *map, t_data *data)
 	{
 		mat[i] = (t_pos *)malloc(sizeof(t_pos) * data->width);
 		if (mat[i] == NULL)
-			return (line_clear(&map, &free_line), clear_tab((void **)mat, i), NULL);
-		j = 0;
-		while (j < data->width)
-		{
-			y = ft_atoi(current->line[j]);
-			//printf("%d\n", y);
-			//printf("%s ", map->line[j]);
-			//printf("%f /", i - data->middle_y);
-			mat[i][j] = new_pos(i, -y, j);
-			j++;
-		}
-		//printf("\n");
+			return (line_clear(&map, &free_line),
+				clear_tab((void **)mat, i), NULL);
+		create_pos(data, current, mat[i], i);
 		i++;
 		current = current->next;
 	}
 	line_clear(&map, &free_line);
-	return (mat);
-/*
-	mat = (t_pos **)malloc(sizeof(t_pos *) * 2);
-	mat[0] = (t_pos *)malloc(sizeof(t_pos) * 2);
-	mat[1] = (t_pos *)malloc(sizeof(t_pos) * 2);
-	mat[0][0] = new_pos(0, 0, 0);
-	mat[0][1] = new_pos(1, 0, 0);
-	mat[1][0] = new_pos(0, 0, 1);
-	mat[1][1] = new_pos(1, 0, 1);
-*/
 	return (mat);
 }

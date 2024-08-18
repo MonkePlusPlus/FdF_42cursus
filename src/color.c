@@ -6,48 +6,67 @@
 /*   By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 17:04:48 by ptheo             #+#    #+#             */
-/*   Updated: 2024/07/28 22:13:01 by ptheo            ###   ########.fr       */
+/*   Updated: 2024/08/18 17:57:12 by ptheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 
-t_color	new_color(int color1, int color2)
+t_color	pick_color(long color)
 {
-	t_color	color;
+	t_color	final;
 
-	color.start = color1;
-	color.end = color2;
+	final.blue = color % 255;
+	if (final.blue == 0 && color % 16 == 15)
+		final.blue = 255;
+	color /= 256;
+	final.green = color % 255;
+	if (final.green == 0 && color % 16 == 15)
+		final.green = 255;
+	color /= 256;
+	final.red = color % 255;
+	if (final.red == 0 && color % 16 == 15)
+		final.red = 255;
+	return (final);
+}
+
+t_color	new_color(t_color color, t_color color2)
+{
+	if (color.red < color2.red)
+		color.red += 1;
+	else if (color.blue < color2.blue)
+		color.blue += 1;
+	else if (color.green < color2.green)
+		color.green += 1;
 	return (color);
 }
 
-int	pick_color(t_pos pos)
+long	hexa_color(t_color color)
 {
-	int	y;
+	long	final;
 
-	y = -pos.j;
-	if (y >= 10)
-		return (RED);
-	else if (y >= 20)
-		return (GREEN);
-	else if (y >= 30)
-		return (BLUE);
-	return (WHITE);
+	final = 0x00000000;
+	final += (color.red * 256 * 256);
+	final += (color.green * 256);
+	final += (color.blue);
+	return (final);
 }
 
-t_color	full_color(t_pos pos1, t_pos pos2)
+t_color	get_color(char **color)
 {
-	t_color	color;
+	t_color	final;
 
-	if (-pos1.j > -pos2.j)
-	{	
-		color.end = pick_color(pos1);
-		color.start = pick_color(pos2);
-	}
-	else
-	{
-		color.start = pick_color(pos1);
-		color.end = pick_color(pos2);
-	}
-	return (color);
+	final = char_to_hexa(color[1] + 2);
+	free_line(color);
+	return (final);
+}
+
+t_color	select_color(char *line)
+{
+	char	**number;
+
+	number = better_split(line, ",");
+	if (number[1] != NULL)
+		return (get_color(number));
+	return (pick_color(WHITE));
 }
