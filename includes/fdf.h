@@ -6,7 +6,7 @@
 /*   By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 16:59:24 by ptheo             #+#    #+#             */
-/*   Updated: 2024/08/18 17:51:33 by ptheo            ###   ########.fr       */
+/*   Updated: 2024/08/18 19:00:32 by ptheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@
 # include <stdint.h>
 # include <math.h>
 
-#ifndef M_PI
-# define M_PI 3.14
-#endif
+# ifndef M_PI
+#  define M_PI 3.14
+# endif
 
 # define SCREEN_WIDTH 1920
 # define SCREEN_HEIGHT 1080
@@ -57,10 +57,10 @@ typedef struct s_pixel
 
 typedef struct s_axe
 {
-    double  alpha;
-    double  beta;
-    double  delta;
-}               t_axe;
+	double	alpha;
+	double	beta;
+	double	delta;
+}				t_axe;
 
 typedef struct s_pos
 {
@@ -87,7 +87,7 @@ typedef struct s_mouse
 
 typedef struct s_line
 {
-	char	**line;
+	char			**line;
 	struct s_line	*next;
 }				t_line;
 
@@ -99,14 +99,14 @@ typedef struct s_data
 	t_pixel	*pixel;
 	t_mouse	mouse;
 	t_axe	axis;
-    t_pos   **matrix;
+	t_pos	**matrix;
 	double	middle_x;
 	double	middle_y;
-    int     width;
+	int		width;
 	int		height;
 	int		prof;
 	int		**screen;
-    int		zoom;
+	int		zoom;
 	int		rendering;
 	int		inrendering;
 }				t_data;
@@ -118,8 +118,8 @@ void	put_pixel(t_data *data, int x, int y, int color);
 void	clear_pixel(t_pixel *pixel);
 
 /* BACKGROUND */
-void create_backgound(t_data *data);
-int **create_screen();
+void	create_backgound(t_data *data);
+int		**create_screen(void);
 
 /* CREATE FIGURE */
 void	create_line(t_data *data, t_pos pos0, t_pos pos1);
@@ -132,7 +132,7 @@ void	maplen(t_line *list, t_data *data);
 void	print_map(t_line *map);
 
 /* SPLIT */
-int	check_char(char s, char *c);
+int		check_char(char s, char *c);
 char	**better_split(char const *s, char *c);
 
 /* POSITION POINT & ROTATION */
@@ -142,12 +142,12 @@ void	pitch(t_axe axis, t_pos *pos);
 void	yaw(t_axe axis, t_pos *pos);
 
 /* KEY MANAGEMENT */
-int key_touch(int keycode, t_data *data);
+int		key_touch(int keycode, t_data *data);
 
 /* MOUSE MANAGEMENT*/
-int mouse_movement(int x, int y, t_data *data);
-int mouse_click(int mousecode, int x, int y, t_data *data);
-int mouse_release(int mousecode, int x, int y, t_data *data);
+int		mouse_movement(int x, int y, t_data *data);
+int		mouse_click(int mousecode, int x, int y, t_data *data);
+int		mouse_release(int mousecode, int x, int y, t_data *data);
 
 /* CLOSE WINDOW */
 int		close_window(t_data *data);
@@ -155,7 +155,7 @@ void	freeall(t_data *data);
 void	clear_tab(void **tab, int size);
 
 /* RENDER */
-int	render_next_frame(t_data *data);
+int		render_next_frame(t_data *data);
 
 /* CHAIN LIST LINE */
 t_line	*new_line(char **content);
