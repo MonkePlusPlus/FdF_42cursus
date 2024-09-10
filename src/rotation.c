@@ -6,7 +6,7 @@
 /*   By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 01:05:47 by ptheo             #+#    #+#             */
-/*   Updated: 2024/07/28 22:17:18 by ptheo            ###   ########.fr       */
+/*   Updated: 2024/09/10 19:40:08 by ptheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,29 @@ void	yaw(t_axe axis, t_pos *pos)
 	n_y = pos->a * sin(axis.delta) + pos->b * cos(axis.delta);
 	pos->a = n_x;
 	pos->b = n_y;
+}
+
+int	mouse_movement(int x, int y, t_data *data)
+{
+	if (data->mouse.left && !data->mouse.right && data->inrendering == 0)
+	{
+		data->pos.x += ft_cmppos(data->mouse.vector_x, x, 5);
+		data->pos.y += ft_cmppos(data->mouse.vector_y, y, 5);
+		data->mouse.vector_x = x;
+		data->mouse.vector_y = y;
+	}
+	else if (data->mouse.right && !data->mouse.left && data->rendering == 0)
+	{
+		if (data->mouse.rota_x < x)
+			data->axis.alpha += 0.03;
+		else if (data->mouse.rota_x > x)
+			data->axis.alpha -= 0.03;
+		if (data->mouse.rota_y < y)
+			data->axis.beta += 0.03;
+		else if (data->mouse.rota_y > y)
+			data->axis.beta -= 0.03;
+		data->mouse.rota_x = x;
+		data->mouse.rota_y = y;
+	}
+	return (0);
 }

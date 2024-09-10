@@ -6,7 +6,7 @@
 /*   By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 12:03:58 by ptheo             #+#    #+#             */
-/*   Updated: 2024/08/18 17:55:39 by ptheo            ###   ########.fr       */
+/*   Updated: 2024/09/10 19:47:58 by ptheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,31 +18,6 @@ int	ft_cmppos(int x, int y, int speed)
 		return (-speed);
 	else if (x < y)
 		return (speed);
-	return (0);
-}
-
-int	mouse_movement(int x, int y, t_data *data)
-{
-	if (data->mouse.left && !data->mouse.right && data->inrendering == 0)
-	{
-		data->pos.x += ft_cmppos(data->mouse.vector_x, x, 5);
-		data->pos.y += ft_cmppos(data->mouse.vector_y, y, 5);
-		data->mouse.vector_x = x;
-		data->mouse.vector_y = y;
-	}
-	else if (data->mouse.right && !data->mouse.left && data->rendering == 0)
-	{
-		if (data->mouse.rota_x < x)
-			data->axis.alpha += 0.03;
-		else if (data->mouse.rota_x > x)
-			data->axis.alpha -= 0.03;
-		if (data->mouse.rota_y < y)
-			data->axis.beta += 0.03;
-		else if (data->mouse.rota_y > y)
-			data->axis.beta -= 0.03;
-		data->mouse.rota_x = x;
-		data->mouse.rota_y = y;
-	}
 	return (0);
 }
 
@@ -78,7 +53,6 @@ int	mouse_click(int mousecode, int x, int y, t_data *data)
 
 int	key_touch(int keycode, t_data *data)
 {
-	ft_printf("key : %d\n", keycode);
 	if (keycode == 65361)
 	{
 		data->rendering = 1;
@@ -97,10 +71,23 @@ int	key_touch(int keycode, t_data *data)
 		data->axis.beta = 35.264 * M_PI / 180;
 		data->axis.delta = 30.736 * M_PI / 180;
 	}
-	else if (keycode == 32)
+	else
+		return (key_touch2(keycode, data));
+	return (0);
+}
+
+int	key_touch2(int keycode, t_data *data)
+{
+	if (keycode == 32)
 	{
 		data->pos.x = 0;
 		data->pos.y = 0;
+	}
+	else if (keycode == 112)
+	{
+		data->axis.alpha = 0;
+		data->axis.beta = 0;
+		data->axis.delta = 0;
 	}
 	return (0);
 }

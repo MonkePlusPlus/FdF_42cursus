@@ -6,7 +6,7 @@
 /*   By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 16:59:24 by ptheo             #+#    #+#             */
-/*   Updated: 2024/08/18 19:00:32 by ptheo            ###   ########.fr       */
+/*   Updated: 2024/09/10 19:44:37 by ptheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,8 +143,10 @@ void	yaw(t_axe axis, t_pos *pos);
 
 /* KEY MANAGEMENT */
 int		key_touch(int keycode, t_data *data);
+int		key_touch2(int keycode, t_data *data);
 
 /* MOUSE MANAGEMENT*/
+int		ft_cmppos(int x, int y, int speed);
 int		mouse_movement(int x, int y, t_data *data);
 int		mouse_click(int mousecode, int x, int y, t_data *data);
 int		mouse_release(int mousecode, int x, int y, t_data *data);
