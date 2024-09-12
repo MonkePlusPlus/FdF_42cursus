@@ -6,7 +6,7 @@
 /*   By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 15:25:15 by ptheo             #+#    #+#             */
-/*   Updated: 2024/08/18 18:48:16 by ptheo            ###   ########.fr       */
+/*   Updated: 2024/09/12 19:42:17 by ptheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ void	create_axis(t_data *data)
 	data->mouse.vector_y = SCREEN_HEIGHT / 2;
 	data->mouse.rota_x = SCREEN_WIDTH / 2;
 	data->mouse.rota_y = SCREEN_HEIGHT / 2;
+	data->screen = NULL;
+	data->matrix = NULL;
 }
 
 int	plus_main(t_data *data, int fd)
@@ -32,19 +34,19 @@ int	plus_main(t_data *data, int fd)
 	create_axis(data);
 	data->screen = create_screen();
 	if (data->screen == NULL)
-		return (0);
+		return (ft_putstr_fd("Error screen\n", 2), 0);
 	data->rendering = 1;
 	data->inrendering = 0;
 	data->height = 0;
 	map = create_map(fd, data);
 	if (map == NULL)
-		return (0);
+		return (ft_putstr_fd("Error map\n", 2), 0);
 	maplen(map, data);
 	data->middle_x = (double)data->width / 2;
 	data->middle_y = (double)data->prof / 2;
 	data->matrix = create_matrix(map, data);
 	if (data->matrix == NULL)
-		return (0);
+		return (ft_putstr_fd("Error matrix\n", 2), 0);
 	data->zoom = fmin(800 / (data->width), 800 / (data->prof));
 	data->pos.x = 0;
 	data->pos.y = 0;
@@ -70,20 +72,21 @@ int	main(int ac, char **av)
 	if (ac > 1)
 	{
 		fd = open(av[1], O_RDONLY);
-		if (fd == -1)
+		if (fd < 0)
 			return (1);
 		data.mlx = mlx_init();
 		if (data.mlx == NULL)
-			return (1);
+			return (ft_putstr_fd("Error mlx\n", 2), 0);
 		data.win = mlx_new_window(data.mlx, SCREEN_WIDTH, SCREEN_HEIGHT,
 				"fdf");
 		if (data.win == NULL)
-			return (free(data.mlx), 1);
+			return (free(data.mlx), ft_putstr_fd("Error mlx_win\n", 2), 1);
 		data.pixel = create_pixel(data.mlx);
 		if (data.pixel == NULL || data.pixel->pixel == NULL)
-			return (free(data.mlx), free(data.win), 1);
+			return (free(data.mlx), free(data.win),
+				ft_putstr_fd("Error pixel\n", 2), 1);
 		if (plus_main(&data, fd) == 0)
-			return (freeall(&data), 1);
+			return (ft_putstr_fd("Error fill data\n", 2), freeall(&data), 1);
 		loop_render(&data);
 		close(fd);
 	}

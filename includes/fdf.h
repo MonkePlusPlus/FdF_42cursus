@@ -6,7 +6,7 @@
 /*   By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 16:59:24 by ptheo             #+#    #+#             */
-/*   Updated: 2024/09/10 19:44:37 by ptheo            ###   ########.fr       */
+/*   Updated: 2024/09/12 17:18:07 by ptheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,9 +127,11 @@ void	create_field(t_data *data);
 
 /* MATRIX MAP */
 t_pos	**create_matrix(t_line *map, t_data *data);
+int		create_pos(t_data *data, t_line *current, t_pos *mat, int i);
 t_line	*create_map(int fd, t_data *data);
 void	maplen(t_line *list, t_data *data);
 void	print_map(t_line *map);
+int		check_number(char *line);
 
 /* SPLIT */
 int		check_char(char s, char *c);

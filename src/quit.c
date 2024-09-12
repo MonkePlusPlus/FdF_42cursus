@@ -6,11 +6,31 @@
 /*   By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 20:13:33 by ptheo             #+#    #+#             */
-/*   Updated: 2024/07/30 15:15:00 by ptheo            ###   ########.fr       */
+/*   Updated: 2024/09/12 19:41:11 by ptheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
+
+int	check_number(char *line)
+{
+	int	i;
+
+	i = 0;
+	if (line == NULL)
+		return (-1);
+	if (line[0] == '-')
+		i++;
+	while (line[i] && line[i] != ',')
+	{
+		if (!(line[i] >= '0' && line[i] <= '9'))
+			return (-1);
+		i++;
+	}
+	if (!(line[i] == ',' || line[i] == '\0'))
+		return (-1);
+	return (0);
+}
 
 int	close_window(t_data *data)
 {
@@ -38,7 +58,7 @@ void	freeall(t_data *data)
 		clear_tab((void **)data->matrix, data->prof);
 	if (data->screen != NULL)
 		clear_tab((void **)data->screen, SCREEN_HEIGHT);
-	if (data->pixel)
+	if (data->pixel != NULL)
 	{
 		mlx_destroy_image(data->mlx, data->pixel->pixel);
 		free(data->pixel);
@@ -48,7 +68,8 @@ void	freeall(t_data *data)
 	if (data->mlx)
 		mlx_destroy_display(data->mlx);
 	data->win = NULL;
-	if (data->mlx)
+	if (data->mlx != NULL)
 		free(data->mlx);
+	data->mlx = NULL;
 	exit(0);
 }

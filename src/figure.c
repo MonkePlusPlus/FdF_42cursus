@@ -6,7 +6,7 @@
 /*   By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:45:18 by ptheo             #+#    #+#             */
-/*   Updated: 2024/08/18 19:54:06 by ptheo            ###   ########.fr       */
+/*   Updated: 2024/09/12 19:41:52 by ptheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ t_pos	new_pos(int x, int y, int z)
 	return (pos);
 }
 
-void	create_pos(t_data *data, t_line *current, t_pos *mat, int i)
+int	create_pos(t_data *data, t_line *current, t_pos *mat, int i)
 {
 	int	j;
 	int	y;
@@ -65,6 +65,8 @@ void	create_pos(t_data *data, t_line *current, t_pos *mat, int i)
 	j = 0;
 	while (j < data->width)
 	{
+		if (check_number(current->line[j]) == -1)
+			return (-1);
 		y = ft_atoi(current->line[j]);
 		while (y > 100)
 			y /= 10;
@@ -72,6 +74,7 @@ void	create_pos(t_data *data, t_line *current, t_pos *mat, int i)
 		mat[j].color = select_color(current->line[j]);
 		j++;
 	}
+	return (0);
 }
 
 t_pos	**create_matrix(t_line *map, t_data *data)
@@ -89,10 +92,10 @@ t_pos	**create_matrix(t_line *map, t_data *data)
 	while (i < data->prof)
 	{
 		mat[i] = (t_pos *)malloc(sizeof(t_pos) * data->width);
-		if (mat[i] == NULL)
+		if (mat[i] == NULL || (create_pos(data, current, mat[i], i) == -1))
 			return (line_clear(&map, &free_line),
-				clear_tab((void **)mat, i), NULL);
-		create_pos(data, current, mat[i], i);
+				clear_tab((void **)mat, i + 1), ft_putstr_fd("Error pos\n", 2),
+				NULL);
 		i++;
 		current = current->next;
 	}

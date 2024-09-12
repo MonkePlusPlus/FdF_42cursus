@@ -6,7 +6,7 @@
 /*   By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:49:18 by ptheo             #+#    #+#             */
-/*   Updated: 2024/08/18 18:09:37 by ptheo            ###   ########.fr       */
+/*   Updated: 2024/09/12 17:04:26 by ptheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ t_line	*create_map(int fd, t_data *data)
 	while (line)
 	{
 		list_line = better_split(line, WHITE_SPACE);
+		if (list_line == NULL)
+			return (line_clear(&list, &free_line), free(line), NULL);
 		list = new_line(list_line);
 		line_add(&start, list);
 		free(line);
