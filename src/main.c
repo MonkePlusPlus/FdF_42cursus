@@ -6,7 +6,7 @@
 /*   By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 15:25:15 by ptheo             #+#    #+#             */
-/*   Updated: 2024/09/12 19:42:17 by ptheo            ###   ########.fr       */
+/*   Updated: 2024/09/13 18:54:29 by ptheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ void	create_axis(t_data *data)
 	data->mouse.rota_y = SCREEN_HEIGHT / 2;
 	data->screen = NULL;
 	data->matrix = NULL;
+	data->color = WHITE;
+	data->change_color = 0;
 }
 
 int	plus_main(t_data *data, int fd)
@@ -86,7 +88,7 @@ int	main(int ac, char **av)
 			return (free(data.mlx), free(data.win),
 				ft_putstr_fd("Error pixel\n", 2), 1);
 		if (plus_main(&data, fd) == 0)
-			return (ft_putstr_fd("Error fill data\n", 2), freeall(&data), 1);
+			return (freeall(&data), 1);
 		loop_render(&data);
 		close(fd);
 	}

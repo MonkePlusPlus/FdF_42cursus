@@ -6,7 +6,7 @@
 /*   By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:45:18 by ptheo             #+#    #+#             */
-/*   Updated: 2024/09/12 19:41:52 by ptheo            ###   ########.fr       */
+/*   Updated: 2024/09/13 18:53:02 by ptheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,10 @@ void	check_pixel(t_data *data, t_pos pos0, t_pos pos1)
 	if (pos0.x > 0 && pos0.x < SCREEN_WIDTH && pos0.y > 0
 		&& pos0.y < SCREEN_HEIGHT)
 	{
-		put_pixel(data, pos0.x, pos0.y, hexa_color(pos0.color));
+		if (data->change_color)
+			put_pixel(data, pos0.x, pos0.y, data->color);
+		else
+			put_pixel(data, pos0.x, pos0.y, hexa_color(pos0.color));
 		data->screen[(int)pos0.y][(int)pos0.x] = 1;
 	}
 }
@@ -71,7 +74,7 @@ int	create_pos(t_data *data, t_line *current, t_pos *mat, int i)
 		while (y > 100)
 			y /= 10;
 		mat[j] = new_pos(i, -y, j);
-		mat[j].color = select_color(current->line[j]);
+		mat[j].color = select_color(data, current->line[j]);
 		j++;
 	}
 	return (0);

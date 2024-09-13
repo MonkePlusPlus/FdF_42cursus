@@ -6,7 +6,7 @@
 /*   By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 16:23:54 by ptheo             #+#    #+#             */
-/*   Updated: 2024/09/10 19:51:43 by ptheo            ###   ########.fr       */
+/*   Updated: 2024/09/13 18:44:37 by ptheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,12 @@ void	affiche_text_res(t_data *data)
 			"P : orthogonal projection");
 		mlx_string_put(data->mlx, data->win, 20, 210, WHITE,
 			"SPACE : go back center");
+		mlx_string_put(data->mlx, data->win, 20, 300, WHITE,
+			"| CHOSE COLOR |");
+		mlx_string_put(data->mlx, data->win, 20, 320, RED, "R : RED");
+		mlx_string_put(data->mlx, data->win, 20, 335, GREEN, "G : GREEN");
+		mlx_string_put(data->mlx, data->win, 20, 350, BLUE, "B : BLUE");
+		mlx_string_put(data->mlx, data->win, 20, 365, WHITE, "W : WHITE");
 	}
 	if (zoom)
 		free(zoom);

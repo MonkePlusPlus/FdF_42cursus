@@ -6,7 +6,7 @@
 /*   By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 17:04:48 by ptheo             #+#    #+#             */
-/*   Updated: 2024/09/12 19:41:20 by ptheo            ###   ########.fr       */
+/*   Updated: 2024/09/13 18:37:25 by ptheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,12 @@ t_color	get_color(char **color)
 	return (final);
 }
 
-t_color	select_color(char *line)
+t_color	select_color(t_data *data, char *line)
 {
 	char	**number;
 
 	number = better_split(line, ",");
 	if (number[1] != NULL)
 		return (get_color(number));
-	return (pick_color(WHITE));
+	return (pick_color(data->color));
 }

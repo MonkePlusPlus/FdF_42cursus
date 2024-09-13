@@ -6,7 +6,7 @@
 /*   By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 12:03:58 by ptheo             #+#    #+#             */
-/*   Updated: 2024/09/10 19:47:58 by ptheo            ###   ########.fr       */
+/*   Updated: 2024/09/13 19:00:19 by ptheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,16 @@ int	key_touch(int keycode, t_data *data)
 		data->rendering = 1;
 		data->axis.delta += 0.04;
 	}
-	else if (keycode == 65307)
-		close_window(data);
 	else if (keycode == 105)
 	{
 		data->axis.alpha = 49 * M_PI / 180;
 		data->axis.beta = 35.264 * M_PI / 180;
 		data->axis.delta = 30.736 * M_PI / 180;
+	}
+	else if (keycode == 32)
+	{
+		data->pos.x = 0;
+		data->pos.y = 0;
 	}
 	else
 		return (key_touch2(keycode, data));
@@ -78,16 +81,28 @@ int	key_touch(int keycode, t_data *data)
 
 int	key_touch2(int keycode, t_data *data)
 {
-	if (keycode == 32)
-	{
-		data->pos.x = 0;
-		data->pos.y = 0;
-	}
+	if (keycode == 65307)
+		close_window(data);
 	else if (keycode == 112)
 	{
 		data->axis.alpha = 0;
 		data->axis.beta = 0;
 		data->axis.delta = 0;
 	}
+	else if (keycode == 114 || keycode == 103
+		|| keycode == 98 || keycode == 119)
+	{
+		data->change_color = 1;
+		if (keycode == 114)
+			data->color = RED;
+		else if (keycode == 103)
+			data->color = GREEN;
+		else if (keycode == 98)
+			data->color = BLUE;
+		else if (keycode == 119)
+			data->color = WHITE;
+	}
+	else if (keycode == 110)
+		data->change_color = 0;
 	return (0);
 }

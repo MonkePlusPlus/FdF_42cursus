@@ -6,7 +6,7 @@
 /*   By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 16:59:24 by ptheo             #+#    #+#             */
-/*   Updated: 2024/09/12 17:18:07 by ptheo            ###   ########.fr       */
+/*   Updated: 2024/09/13 18:54:20 by ptheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,8 @@ typedef struct s_data
 	int		zoom;
 	int		rendering;
 	int		inrendering;
+	int		color;
+	int		change_color;
 }				t_data;
 
 /* PIXEL MANAGEMENT */
@@ -174,7 +176,7 @@ void	affiche_text(t_data *data);
 t_color	pick_color(long color);
 t_color	new_color(t_color color, t_color color2);
 long	hexa_color(t_color color);
-t_color	select_color(char *line);
+t_color	select_color(t_data *data, char *line);
 t_color	get_color(char **color);
 t_color	char_to_hexa(char *color);
 
