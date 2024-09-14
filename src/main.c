@@ -6,7 +6,7 @@
 /*   By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 15:25:15 by ptheo             #+#    #+#             */
-/*   Updated: 2024/09/13 18:54:29 by ptheo            ###   ########.fr       */
+/*   Updated: 2024/09/14 18:19:37 by ptheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	create_axis(t_data *data)
 	data->matrix = NULL;
 	data->color = WHITE;
 	data->change_color = 0;
+	data->xhaut = 1;
 }
 
 int	plus_main(t_data *data, int fd)

@@ -6,7 +6,7 @@
 /*   By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 16:59:24 by ptheo             #+#    #+#             */
-/*   Updated: 2024/09/13 18:54:20 by ptheo            ###   ########.fr       */
+/*   Updated: 2024/09/14 18:09:07 by ptheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ typedef struct s_data
 	int		inrendering;
 	int		color;
 	int		change_color;
+	double	xhaut;
 }				t_data;
 
 /* PIXEL MANAGEMENT */
@@ -148,6 +149,7 @@ void	yaw(t_axe axis, t_pos *pos);
 /* KEY MANAGEMENT */
 int		key_touch(int keycode, t_data *data);
 int		key_touch2(int keycode, t_data *data);
+int		key_touch_utils(int keycode, t_data *data);
 
 /* MOUSE MANAGEMENT*/
 int		ft_cmppos(int x, int y, int speed);
@@ -171,6 +173,7 @@ void	free_line(char **line);
 
 /* TEXT */
 void	affiche_text(t_data *data);
+void	affiche_text_other(t_data *data);
 
 /* COLOR */
 t_color	pick_color(long color);

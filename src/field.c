@@ -6,11 +6,28 @@
 /*   By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 18:28:50 by ptheo             #+#    #+#             */
-/*   Updated: 2024/08/18 18:55:45 by ptheo            ###   ########.fr       */
+/*   Updated: 2024/09/14 18:22:37 by ptheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
+
+int	key_touch_utils(int keycode, t_data *data)
+{
+	if (keycode == 110)
+		data->change_color = 0;
+	else if (keycode == 65362)
+	{
+		if (data->xhaut < 1000000)
+			data->xhaut += 0.1;
+	}
+	else if (keycode == 65364)
+	{
+		if (data->xhaut > -1000000)
+			data->xhaut -= 0.1;
+	}
+	return (0);
+}
 
 void	line_maker(t_data *data, int i, int j)
 {
@@ -43,7 +60,7 @@ void	create_field(t_data *data)
 		while (++j < data->width)
 		{
 			data->matrix[i][j].a = data->matrix[i][j].i - data->middle_y;
-			data->matrix[i][j].b = data->matrix[i][j].j;
+			data->matrix[i][j].b = data->matrix[i][j].j * data->xhaut;
 			data->matrix[i][j].c = data->matrix[i][j].z - data->middle_x;
 			roll(data->axis, &data->matrix[i][j]);
 			pitch(data->axis, &data->matrix[i][j]);

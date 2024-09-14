@@ -6,7 +6,7 @@
 /*   By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 12:03:58 by ptheo             #+#    #+#             */
-/*   Updated: 2024/09/13 19:00:19 by ptheo            ###   ########.fr       */
+/*   Updated: 2024/09/14 17:58:11 by ptheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int	key_touch2(int keycode, t_data *data)
 		else if (keycode == 119)
 			data->color = WHITE;
 	}
-	else if (keycode == 110)
-		data->change_color = 0;
+	else
+		key_touch_utils(keycode, data);
 	return (0);
 }
